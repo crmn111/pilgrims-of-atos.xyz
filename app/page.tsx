@@ -7,6 +7,8 @@ export default function Home() {
   useEffect(() => {
     // Request high performance rendering
     const canvas = document.getElementById('gameCanvas') as HTMLCanvasElement;
+    const container = document.getElementById('gameContainer');
+    
     if (canvas) {
       // Force hardware acceleration
       canvas.style.transform = 'translateZ(0)';
@@ -16,6 +18,9 @@ export default function Home() {
     // Small delay to ensure DOM is fully painted
     const timer = setTimeout(() => {
       initGame();
+      // Fade in the game after initialization
+      if (container) container.classList.add('loaded');
+      if (canvas) canvas.classList.add('loaded');
     }, 100);
     
     return () => {
@@ -27,20 +32,12 @@ export default function Home() {
   return (
     <>
       <style jsx global>{`
-        * {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
-        }
-        
         body {
-          background: #1a1a2e;
           display: flex;
           justify-content: center;
           align-items: center;
           min-height: 100vh;
           font-family: 'Courier New', monospace;
-          overflow: hidden;
         }
         
         #gameContainer {
